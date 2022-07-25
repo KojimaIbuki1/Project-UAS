@@ -48,8 +48,22 @@ public class Player : MonoBehaviour
                 holdJumpTimer = 0;
             }
         }
+       
+        if (Input.GetMouseButtonDown(0))
+        {
+            isGrounded = false;
+            velocity.y = jumpVelocity;
+            isHoldingJump = true;
+            holdJumpTimer = 0;
+        }
+            
 
         if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isHoldingJump = false;
+        }
+
+        if (Input.GetMouseButtonUp(0))
         {
             isHoldingJump = false;
         }
