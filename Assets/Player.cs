@@ -13,9 +13,11 @@ public class Player : MonoBehaviour
     public float groundHeight = 10;
     public float distance = 0;
     public bool isGrounded = false;
+
     public float maxXVelocity = 100;
-    public bool isHoldingJump = false;
     public float maxHoldJumpTime = 0.4f;
+    public bool isHoldingJump = false;
+    public float maxMaxHoldJumpTime = 0.4f;
     public float holdJumpTimer = 0.0f;
 
     public float jumpGroundThreshold = 1;
@@ -70,13 +72,24 @@ public class Player : MonoBehaviour
             {
                 velocity.y += gravity * Time.fixedDeltaTime;
             }
-            velocity.y += gravity * Time.fixedDeltaTime;
 
-            if (pos.y <= groundHeight)
+            Vector2 rayOrigin = new Vector2(pos.x + 0.7f, pos.y);
+            Vector2 rayDirection = Vector2.up;
+            float rayDistance = velocity.y * Time.fixedDeltaTime;
+            RaycastHit2D hit2D = Physics2D.Raycast(rayOrigin, rayDirection, rayDistance);
+            if (hit2D.collider != null)
             {
-                pos.y = groundHeight;
-                isGrounded = true;
+                Ground ground = hit2D.collider.GetComponent<Ground>();
+                if (ground != null)
+                {
+                    groundHeight = ground.groundHeight;
+                    pos.y = groundHeight;
+                    velocity.y = 0;
+                    isGrounded = true;
+                }
             }
+            Debug.DrawRay(rayOrigin, rayDirection * rayDistance, Color.red);
+    
         }
 
         distance += velocity.x * Time.fixedDeltaTime;
@@ -85,12 +98,26 @@ public class Player : MonoBehaviour
         {
             float velocityRatio = velocity.x / maxXVelocity;
             acceleration = maxAcceleration * (1 - velocityRatio);
+            maxHoldJumpTime = maxMaxHoldJumpTime * velocityRatio;
 
             velocity.x += acceleration * Time.fixedDeltaTime;
             if (velocity.x >= maxXVelocity)
             {
                 velocity.x = maxXVelocity;
             }
+
+
+            Vector2 rayOrigin = new Vector2(pos.x + 0.7f, pos.y);
+            Vector2 rayDirection = Vector2.up;
+            float rayDistance = velocity.y * Time.fixedDeltaTime;
+            RaycastHit2D hit2D = Physics2D.Raycast(rayOrigin, rayDirection, rayDistance);
+            if (hit2D.collider != null)
+            {
+                isGrounded = false;  
+               
+            }
+            Debug.DrawRay(rayOrigin, rayDirection * rayDistance, Color.red);
+
         }
 
         transform.position = pos;

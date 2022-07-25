@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Parallax : MonoBehaviour
+public class Obstacle : MonoBehaviour
 {
-
-    public float depth = 1;
-
     Player player;
+
 
     private void Awake()
     {
@@ -20,15 +18,20 @@ public class Parallax : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        float realVelocity = player.velocity.x / depth;
+        
+    }
+
+    private void FixedUpdate()
+    {
         Vector2 pos = transform.position;
 
-        pos.x -= realVelocity * Time.fixedDeltaTime;
-
-        if (pos.x <= -40)
-            pos.x = 86;
+        pos.x -= player.velocity.x * Time.fixedDeltaTime;
+        if(pos.x < -100)
+        {
+            Destroy(gameObject);
+        }
 
         transform.position = pos;
     }
