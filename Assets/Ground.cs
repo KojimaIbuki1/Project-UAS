@@ -14,6 +14,7 @@ public class Ground : MonoBehaviour
     bool didGenerateGround = false;
 
     public Obstacle boxTemplate;
+
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
