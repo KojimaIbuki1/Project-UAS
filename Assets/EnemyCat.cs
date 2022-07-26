@@ -4,30 +4,33 @@ using UnityEngine;
 
 public class EnemyCat : MonoBehaviour
 {
-    Player player;
+    public Player player;
 
 
-    private void Awake()
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == "Player")
+        {
+            player.hitEnemy();
+        }
+    }
+
+
+     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     void Start()
     {
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void FixedUpdate()
     {
         Vector2 pos = transform.position;
 
-        pos.x -= player.velocity.x * Time.fixedDeltaTime;
+        pos.x -= player.velocity.x * 2 * Time.fixedDeltaTime;
         if (pos.x < -100)
         {
             Destroy(gameObject);

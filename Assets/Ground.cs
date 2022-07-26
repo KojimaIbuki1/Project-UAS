@@ -15,6 +15,8 @@ public class Ground : MonoBehaviour
 
     public Obstacle boxTemplate;
 
+    public EnemyCat enemyCat;
+
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -105,6 +107,19 @@ public class Ground : MonoBehaviour
             float x = Random.Range(left, right);
             Vector2 boxPos = new Vector2(x, y);
             box.transform.position = boxPos;
+        }
+
+        int enemyNum = Random.Range(0, 2);
+        for (int i = 0; i < enemyNum; i++)
+        {
+            GameObject enemy = Instantiate(enemyCat.gameObject);
+            float y = goGround.groundHeight + 10;
+            float halfWidth = goCollidder.size.x / 2 - 1;
+            float left = go.transform.position.x - halfWidth;
+            float right = go.transform.position.x + halfWidth;
+            float x = Random.Range(left, right);
+            Vector2 enemyPos = new Vector2(x, y);
+            enemy.transform.position = enemyPos;
         }
     }
 }

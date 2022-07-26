@@ -47,15 +47,16 @@ public class Player : MonoBehaviour
                 isHoldingJump = true;
                 holdJumpTimer = 0;
             }
+            if (Input.GetMouseButtonDown(0))
+            {
+                isGrounded = false;
+                velocity.y = jumpVelocity;
+                isHoldingJump = true;
+                holdJumpTimer = 0;
+            }
         }
        
-       if (Input.GetMouseButtonDown(0))
-        {
-            isGrounded = false;
-            velocity.y = jumpVelocity;
-            isHoldingJump = true;
-            holdJumpTimer = 0;
-        }
+       
             
 
         if (Input.GetKeyUp(KeyCode.Space))
@@ -195,7 +196,9 @@ public class Player : MonoBehaviour
         velocity.x *= 0.7f;
     }
 
-    void hitEnemy()
+    public void hitEnemy()
     {
+         isDead = true;
+         velocity.x = 0;
     }
 }
