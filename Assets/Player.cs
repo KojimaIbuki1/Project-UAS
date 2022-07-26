@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
             }
         }
        
-        if (Input.GetMouseButtonDown(0))
+       if (Input.GetMouseButtonDown(0))
         {
             isGrounded = false;
             velocity.y = jumpVelocity;
@@ -193,5 +193,9 @@ public class Player : MonoBehaviour
     {
         Destroy(obstacle.gameObject);
         velocity.x *= 0.7f;
+    }
+
+    void hitEnemy()
+    {
     }
 }
