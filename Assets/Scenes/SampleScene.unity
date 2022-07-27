@@ -1747,6 +1747,7 @@ MonoBehaviour:
   groundHeight: 0
   distance: 0
   isGrounded: 0
+  Jump: 0
   maxXVelocity: 100
   maxHoldJumpTime: 0.4
   isHoldingJump: 0
@@ -2037,7 +2038,8 @@ MonoBehaviour:
   groundRight: 0
   screenRight: 0
   boxTemplate: {fileID: 3301880050562570946, guid: 75b19ce26bb3f134aae622182147cedc, type: 3}
-  enemyCat: {fileID: 589705558694411089, guid: 1b2fd4102c24cd249810e17e6422b8d8, type: 3}
+  enemyCat: {fileID: -3612191083212129730, guid: 0de94cb3d8c95a94aae63a2f1836cc70, type: 3}
+  enemyPlus: {fileID: 8640613020466150637, guid: 1b2fd4102c24cd249810e17e6422b8d8, type: 3}
 --- !u!4 &2075913549
 Transform:
   m_ObjectHideFlags: 0

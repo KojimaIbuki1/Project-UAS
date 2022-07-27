@@ -13,10 +13,12 @@ public class Player : MonoBehaviour
     public float groundHeight = 10;
     public float distance = 0;
     public bool isGrounded = false;
+    public bool Jump;
+    private Animator anim;
 
     public float maxXVelocity = 100;
     public float maxHoldJumpTime = 0.4f;
-    public bool isHoldingJump = false;
+    public bool isHoldingJump;
     public float maxMaxHoldJumpTime = 0.4f;
     public float holdJumpTimer = 0.0f;
 
@@ -29,7 +31,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -43,6 +45,7 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 isGrounded = false;
+                Jump = true;
                 velocity.y = jumpVelocity;
                 isHoldingJump = true;
                 holdJumpTimer = 0;
@@ -50,23 +53,24 @@ public class Player : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 isGrounded = false;
+                Jump = true;
                 velocity.y = jumpVelocity;
                 isHoldingJump = true;
                 holdJumpTimer = 0;
             }
         }
-       
-       
-            
-
+        anim.SetBool("Jump", Jump);
         if (Input.GetKeyUp(KeyCode.Space))
         {
             isHoldingJump = false;
+            Jump = false;
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             isHoldingJump = false;
+            Jump = false;
+
         }
     }
 
@@ -163,7 +167,6 @@ public class Player : MonoBehaviour
                
             }
             Debug.DrawRay(rayOrigin, rayDirection * rayDistance, Color.red);
-
         }
 
         Vector2 obstOrigin = new Vector2(pos.x, pos.y);
